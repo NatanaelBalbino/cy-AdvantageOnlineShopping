@@ -3,6 +3,7 @@ import Home from '../../../support/pages/Home'
 import Search from '../../../support/pages/Search'
 import Product from '../../../support/pages/Product'
 import ShoppingCart from '../../../support/pages/ShoppingCart'
+import OrderPaymant from '../../../support/pages/OrderPayment'
 
 let tituloDoProduto, tituloProdutoCarrinho, tituloProdutoPagamento;
 
@@ -32,10 +33,5 @@ When("acessar a tela de Pagamento", () => {
 })
 
 Then("o produtos que estão no carrinho devem aparecer na tela de Pagamentos", () => {
-    cy.get('#userCart').find('h3').invoke('text').then((textoDoH3) => {
-        tituloProdutoPagamento = textoDoH3;
-
-        expect(tituloProdutoPagamento).to.not.be.empty;
-        expect(tituloDoProduto).to.contain(tituloProdutoPagamento)
-    })
+    OrderPaymant.validaProdutosPagamento(tituloDoProduto, tituloProdutoPagamento);
 })

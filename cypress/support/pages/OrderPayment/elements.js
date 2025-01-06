@@ -1,3 +1,4 @@
 export const ELEMENTS = {
-    divProdutosUsuario: '#userCart'
+    divProdutosUsuario: '#userCart',
+    titleProdutoUsuario: 'h3'
 }

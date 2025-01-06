@@ -41,4 +41,22 @@ Para executar os testes diretamente no console:
 npx cypress run
 ```
 
+## Desafio Web
+
+Abaixo as features e seus respectivos cenários conforme solicitado
+
+- search_product.feature | Realize a busca de um produto.
+- select_product.feature | Incluir produto no carrinho.
+- validate_product.feature | Validar os produtos incluídos no carrinho na tela de pagamento.
+
+Pra o desafio Web utilizei a Arquitetura Page Objects que pode ser avaliada na pasta:
+- cypress/support/page
+
+## Desafio API
+
+Abaixo a feature e o cenário conforme solicitado
+
+- ValidateProductsAPI | Procure por um produto (GET).
+- ValidateUpdateImageAPI | Atualize a imagem de um produto (POST): Esse teste infelizmente não consegui fazer.
+
 ✨A URL do ambiente já está definida no projeto, portanto, não é necessário realizar qualquer alteração.✨
