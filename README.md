@@ -16,11 +16,12 @@ Certifique-se de que os seguintes softwares estão instalados na sua máquina:
 3. Selecione o terminal **bash**.
 4. No prompt, insira o comando abaixo para clonar o repositório:
 ```sh
-git clone https://github.com/multisoftware-dev/CY-MultiCTe.git
+git clone https://github.com/NatanaelBalbino/cy-AdvantageOnlineShopping.git
 ```
 5. Navegue até a pasta raiz do projeto:
 ```sh
-cd CY-MultiCTe
+cd cy-AdvantageOnlineShopping
+
 ```
 6. Instale as dependências do projeto:
 ```sh
