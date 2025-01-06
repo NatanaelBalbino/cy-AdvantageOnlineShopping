@@ -29,34 +29,6 @@ npm install
 ```
 Aguarde a conclusão da instalação.
 
-## Configurando as Credenciais
-
-Para executar os testes locais (Cypress), você precisará configurar suas credenciais.
-
-1. **Criar o arquivo de configuração:** Se o arquivo `cypress.env.json` não existir, crie-o na raiz do projeto:
-```sh
-cypress.env.json
-```
-
-A estrutura do projeto deve parecer assim:
-```sh
-> .github
-> cypress
-> node_modules
-.gitignore
-cypress.env.json <==
-cypress.config.js
-...
-```
-2. **Adicionar suas credenciais:** Insira o seguinte conteúdo no arquivo `cypress.env.json`, substituindo os valores pelos seus dados:
-```sh
-{
-    "username": "seu-email@multisoftware.com.br",
-    "password": "sua-senha"
-}
-```
-> Nota: O Git irá ignorar esse arquivo ao fazer commits, garantindo que suas credenciais fiquem seguras localmente.
-
 ## Executando os Testes
 
 Para abrir a interface gráfica do Cypress e rodar os testes:
