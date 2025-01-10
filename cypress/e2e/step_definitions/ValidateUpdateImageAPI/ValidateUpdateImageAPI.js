@@ -36,14 +36,7 @@ Given("que enviei a requisição de Update para a API", () => {
     cy.fixture(fileName, "binary").then((txtBin) => Cypress.Blob.binaryStringToBlob(txtBin)).then((blob) => {
         const formData = new FormData();
         formData.append("file", blob, fileName);
-        form_request(method, url, formData, function (xhr) { 
-
-            const resp = JSON.stringify(xhr.responseText, (key, value) => {
-                if (key === "ImageColor") {
-                  return value.toString();
-                }
-                return value;
-            });
+        form_request(method, url, formData, function (xhr) {
 
             expect(xhr.status).to.eq(200);
             expect(xhr.responseText).to.not.be.empty;
