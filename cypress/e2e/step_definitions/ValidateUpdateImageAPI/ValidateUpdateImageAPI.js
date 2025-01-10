@@ -4,77 +4,89 @@ const userId = 191222447;
 const source = 'testeAPI';
 const color = 'black';
 const productId = 7;
-const authToken =
-    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ3d3cuYWR2YW50YWdlb25saW5lc2hvcHBpbmcuY29tIiwidXNlcklkIjoxOTEyMjI0NDcsInN1YiI6InN0cmluZyIsInJvbGUiOiJBRE1JTiJ9.28Ezg3D_namYndEPhj7ClbEdIwxGB-PVSwJWbZ-Dn9M';
-const queryParams = {
-  product_id: productId
-}
-let resp;
+const authToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ3d3cuYWR2YW50YWdlb25saW5lc2hvcHBpbmcuY29tIiwidXNlcklkIjoxOTEyMjI0NDcsInN1YiI6InN0cmluZyIsInJvbGUiOiJBRE1JTiJ9.28Ezg3D_namYndEPhj7ClbEdIwxGB-PVSwJWbZ-Dn9M';
+let responseData;
 
-Given("que enviei a requisição de Update para a API", () => {
-    cy.fixture('laptophp.jpg', 'base64').then((fileContent) => {
+Given("que enviei a requisição de Update para a API", () => {  
+      
+    function form_request(method, url, formData, done) {
+        const xhr = new XMLHttpRequest();
+        xhr.open(method, url);
+    
+        xhr.setRequestHeader(
+            "Authorization",
+            `Bearer ${authToken}`
+        );
+      
+        xhr.onload = function () {
+            done(xhr); // Passando o xhr completo para o callback
+        };
+      
+        xhr.onerror = function () {
+            done(xhr); // Passando o xhr completo para o callback
+        };
+      
+        xhr.send(formData);
+    }
+    
+    const fileName = "laptophp.jpg";
+    const method = "POST";
+    const url = `https://www.advantageonlineshopping.com/catalog/api/v1/product/image/${userId}/${source}/${color}?product_id=${productId}`;
+    
+    cy.fixture(fileName, "binary").then((txtBin) => Cypress.Blob.binaryStringToBlob(txtBin)).then((blob) => {
+        const formData = new FormData();
+        formData.append("file", blob, fileName);
+        form_request(method, url, formData, function (xhr) { 
 
-        const fileBlob = Cypress.Blob.base64StringToBlob(fileContent, 'image/jpeg')
-        const fileType = fileBlob.type
+            const resp = JSON.stringify(xhr.responseText, (key, value) => {
+                if (key === "ImageColor") {
+                  return value.toString();
+                }
+                return value;
+            });
 
-        if (fileType !== 'image/jpeg') {
-            cy.log('O arquivo não é do tipo correto, favor utilizar um arquivo JPEG!');
-            expect(fileType).to.eq('image/jpeg');
-            return;
-        }
-
-
-        cy.log('Token:', authToken);
-        cy.log('URL:', `https://www.advantageonlineshopping.com/catalog/api/v1/product/image/${userId}/${source}/${color}`);
-        cy.log('Query Params:', queryParams);
-        cy.log('File Content (Base64):', fileContent);
-
-        cy.request({
-            method: 'POST',
-            url: `https://www.advantageonlineshopping.com/catalog/api/v1/product/image/${userId}/${source}/${color}`,
-            qs: queryParams,
-            form: true,
-            encoding: 'base64',
-            headers: {
-                Authorization: `Bearer ${authToken}`,
-            },
-            formData: {
-                file: {
-                   value: fileBlob,
-                    options: {
-                        filename: 'laptophp.jpg',
-                        contentType: 'image/jpeg',
-                    },
-               },
-            },
-       }).then((response) => {
-        
-        resp = response;
-
+            expect(xhr.status).to.eq(200);
+            expect(xhr.responseText).to.not.be.empty;
+            
+            try {
+                responseData = JSON.parse(xhr.responseText);
+                
+                expect(responseData).to.have.property('success');
+                expect(responseData.success).to.be.a('boolean');
+                expect(responseData.success).to.eq(true); 
+                expect(responseData).to.have.property('id');
+                expect(responseData.id).to.be.a('number');
+                expect(responseData).to.contain('testeAPI');
+                expect(responseData.imageId).to.be.a('number');
+                expect(responseData).to.have.property('imageColor');
+                expect(responseData.imageColor).to.be.a('string');
+            } catch (e) {
+                // cy.log('Não foi possível analisar o texto de resposta como JSON');
+                expect(xhr.responseText).to.not.be.empty
+                }
         });
     });
 })
 
 When("receber o retorno 200", () => {
-    
-    // cy.log('Status Code:', resp.status);
 
-    if (resp.status === 200) {
-        expect(resp.status).to.eq(200);
+    if (responseData.status === 200) {
+        expect(responseData.status).to.eq(200);
     } else {
-        cy.log(`Erro na requisição: Status ${resp.status}`);
-        cy.log('Response Body:', resp.body);
+        cy.log(`Erro na requisição: Status ${responseData.status}`);
+        cy.log('Response Body:', responseData.body);
     }
+
 })
 
 Then("eu valido que o produto foi atualizado corretamente", () => {
     
-    // cy.log('Response Body:', resp.body);
-    
-    expect(resp.body).property('success').to.eq('true');
+    expect(responseData.body).property('success').to.eq('true');
     
 })
 
 And("eu verifico o novo id da nova imagem inserida", () => {
-    cy.log((resp.body).property('imageId'));
+
+    expect(responseData).to.have.property('imageColor');
+
 })

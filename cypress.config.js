@@ -3,6 +3,7 @@ const { defineConfig } = require("cypress");
 
 module.exports = defineConfig({
   e2e: {
+    experimentalInteractiveRunEvents: true,
     setupNodeEvents(on, config) {
       on('file:preprocessor', cucumber())
     },
