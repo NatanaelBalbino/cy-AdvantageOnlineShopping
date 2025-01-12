@@ -57,6 +57,6 @@ Pra o desafio Web utilizei a Arquitetura Page Objects que pode ser avaliada na p
 Abaixo a feature e o cenário conforme solicitado
 
 - ValidateProductsAPI | Procure por um produto (GET).
-- ValidateUpdateImageAPI | Atualize a imagem de um produto (POST): Esse teste infelizmente está retornando 500 no request. Não consegui finalizar.
+- ValidateUpdateImageAPI | Atualize a imagem de um produto (POST).
 
 ✨A URL do ambiente já está definida no projeto, portanto, não é necessário realizar qualquer alteração.✨
