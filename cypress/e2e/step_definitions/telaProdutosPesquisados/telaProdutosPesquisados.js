@@ -9,6 +9,6 @@ And("eu seleciono um produto da lista", () => {
     Search.clicarEmProduto();
 })
 
-Then("devo ver produtos relacionados a 'Laptop' na listagem", () => {
-    Search.validaProdutosPesquisados();
+Then("devo ver produtos relacionados a {string} na listagem", (produto) => {
+    Search.validaProdutosPesquisados(produto);
 })

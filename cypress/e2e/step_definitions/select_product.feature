@@ -16,3 +16,6 @@ Funcionalidade: Adicionar Produto no Carrinho
     Exemplos:
     | produto |
     | Laptop | 
+    | Mouse |
+    | Tablet |
+    | Speaker |

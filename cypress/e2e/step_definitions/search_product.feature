@@ -14,3 +14,6 @@ Funcionalidade: Procurar Produto
     Exemplos:
     | produto |
     | Laptop | 
+    | Mouse |
+    | Tablet |
+    | Speaker |

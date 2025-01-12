@@ -1,26 +1,19 @@
 import { Given, When, Then } from 'cypress-cucumber-preprocessor/steps'
+import ValidateProductsAPI from '../../../support/pages/ValidateProducts_API';
 
 let productNames = [];
-let resp;
 
-Given("que eu consultei um produto na API de produtos", () => {
-    cy.request({
-        method: 'GET',
-        url: 'https://www.advantageonlineshopping.com/catalog/api/v1/products/search',
-        qs: {
-            name: 'Laptop',
-            quantityPerEachCategory: -1
-        }
-    }).then((response) => {
-        resp = response;
-    })
+Given("que eu consultei um {string} na API", (produto) => {
+    ValidateProductsAPI.getProductsSearchAPI(produto);
 })
 
-When("eu recebo o retorno 200 OK da API", () => {
+When("eu recebo o retorno 200 OK", () => {
+    const resp = Cypress.env('responseProductsSearchAPI');
     expect(resp.status).to.eq(200);
 })
 
-Then("eu valido se o retorno contem somente produtos referentes a minha pesquisa", () => {
+Then("eu valido se o retorno contem somente produtos referentes a meu {string}", (produto) => {
+    const resp = Cypress.env('responseProductsSearchAPI');
     const products = resp.body[0].products;
 
     if(products && products.length > 0){
@@ -29,7 +22,7 @@ Then("eu valido se o retorno contem somente produtos referentes a minha pesquisa
         const productName = product.productName;
 
         productNames.push(productName);
-        expect(productName).to.contain("Laptop")
+        expect(productName).to.contain(produto)
         
     });
   } else {

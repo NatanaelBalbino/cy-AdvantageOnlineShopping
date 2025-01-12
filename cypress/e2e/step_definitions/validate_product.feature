@@ -16,3 +16,5 @@ Funcionalidade: Validar produtos que estão no Carrinho
     Exemplos:
     | produto |
     | Laptop | 
+    | Mouse |
+    | Tablet |
