@@ -17,5 +17,8 @@
   "cypress-cucumber-preprocessor": {
     "nonGlobalSteoDefiniotions": true,
     "stepDefinitions": "cypress/e2e/step_definitions"
+  },
+  "dependencies": {
+    "blob-util": "^2.0.2"
   }
 }
