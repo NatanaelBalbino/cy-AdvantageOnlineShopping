@@ -40,6 +40,11 @@ Para executar os testes diretamente no console:
 ```sh
 npx cypress run
 ```
+## Ferramentas do Desafio
+
+Foi utilizado nesse projeto o Cypress + BDD + Cumcumber.
+Para uma melhor leitura me utilizei da arquitetura Page Objects que pode ser avaliada na pasta:
+- cypress/support/page
 
 ## Desafio Web
 
@@ -48,9 +53,6 @@ Abaixo as features e seus respectivos cenários conforme solicitado
 - search_product.feature | Realize a busca de um produto.
 - select_product.feature | Incluir produto no carrinho.
 - validate_product.feature | Validar os produtos incluídos no carrinho na tela de pagamento.
-
-Pra o desafio Web utilizei a Arquitetura Page Objects que pode ser avaliada na pasta:
-- cypress/support/page
 
 ## Desafio API
 
